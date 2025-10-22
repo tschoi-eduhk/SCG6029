@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEMQuest - Ignite Your Future</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4a90e2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(30, 60, 114, 0.95);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo::before {
+            content: '🚀';
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 120px 2rem 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease-out 0.4s both;
+            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.4);
+            border: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(74, 144, 226, 0.6);
+        }
+
+        /* Sections */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #1e3c72;
+        }
+
+        /* STEM Cards */
+        .stem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stem-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(30, 60, 114, 0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .stem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #1e3c72, #2a5298, #4a90e2);
+        }
+
+        .stem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(30, 60, 114, 0.3);
+        }
+
+        .stem-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .stem-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1e3c72;
+        }
+
+        /* Interactive Demo */
+        .demo-section {
+            background: rgba(42, 82, 152, 0.1);
+        }
+
+        .demo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .physics-sim {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(30, 60, 114, 0.4);
+        }
+
+        .ball {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #4a90e2, #74b9ff);
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            animation: bounce 3s infinite;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(74, 144, 226, 0.5);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            40% { transform: translate(-50%, -50%) translateY(-100px); }
+            60% { transform: translate(-50%, -50%) translateY(-50px); }
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        .control-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.4);
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(30, 60, 114, 0.2);
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(30, 60, 114, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Stats */
+        .stats {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            text-align: center;
+            padding: 3rem 0 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #4a90e2;
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .stem-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">STEMQuest</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#stem">Explore</a></li>
+                <li><a href="#demo">Try It</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Join</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Unlock the Power of STEM</h1>
+            <p>Interactive learning platform that makes Science, Technology, Engineering, and Math exciting and accessible for everyone. Start your journey today!</p>
+            <a href="#demo" class="cta-button">🚀 Start Learning</a>
+        </div>
+    </section>
+
+    <section id="stem" class="container">
+        <h2 class="fade-in">Discover STEM Worlds</h2>
+        <div class="stem-grid">
+            <div class="stem-card fade-in">
+                <div class="stem-icon">🔬</div>
+                <h3>Science</h3>
+                <p>Explore the wonders of biology, chemistry, physics, and earth sciences through hands-on virtual labs and experiments.</p>
+            </div>
+            <div class="stem-card fade-in">
+                <div class="stem-icon">💻</div>
+                <h3>Technology</h3>
+                <p>Master coding, AI, robotics, and cybersecurity with interactive projects and real-world applications.</p>
+            </div>
+            <div class="stem-card fade-in">
+                <div class="stem-icon">🔧</div>
+                <h3>Engineering</h3>
+                <p>Design and build bridges, rockets, and machines using cutting-edge simulation tools.</p>
+            </div>
+            <div class="stem-card fade-in">
+                <div class="stem-icon">📊</div>
+                <h3>Mathematics</h3>
+                <p>Make math magical with visual proofs, puzzles, and gamified problem-solving challenges.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo" class="demo-section">
+        <div class="container">
+            <h2 class="fade-in">Physics in Action</h2>
+            <div class="demo-container">
+                <div class="physics-sim">
+                    <div class="ball" id="physicsBall" title="Click to reset"></div>
+                </div>
+                <div class="controls">
+                    <button class="control-btn" onclick="resetBall()">🔄 Reset</button>
+                    <button class="control-btn" onclick="launchBall()">🚀 Launch</button>
+                    <button class="control-btn" onclick="toggleGravity()">⚖️ Toggle Gravity</button>
+                </div>
+                <p>Experience projectile motion and gravity simulation in real-time!</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <h2 class="fade-in">Why Choose STEMQuest?</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎮</div>
+                    <h3>Gamified Learning</h3>
+                    <p>Earn badges, level up, and compete with friends while mastering STEM concepts.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">👨‍🏫</div>
+                    <h3>Expert Curriculum</h3>
+                    <p>Designed by PhD educators and industry professionals for maximum learning impact.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📱</div>
+                    <h3>Any Device</h3>
+                    <p>Learn anywhere, anytime on desktop, tablet, or mobile devices.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Global Community</h3>
+                    <p>Connect with millions of learners worldwide and collaborate on projects.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <h2>50K+</h2>
+            <p>Students Learning Daily</p>
+            <div class="stats-grid">
+                <div class="stat-item fade-in">
+                    <h3>500+</h3>
+                    <p>Interactive Lessons</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>98%</h3>
+                    <p>Success Rate</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>24/7</h3>
+                    <p>Support Available</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>50+</h3>
+                    <p>Countries</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <h2>Join the STEM Revolution</h2>
+            <p>Start your free trial today and unlock unlimited learning potential!</p>
+            <a href="#" class="cta-button" style="margin-top: 1rem; display: inline-block;">🎓 Get Started Free</a>
+            <div class="social-links">
+                <a href="#">🐦</a>
+                <a href="#">📘</a>
+                <a href="#">📷</a>
+                <a href="#">💼</a>
+            </div>
+            <p>&copy; 2025 STEMQuest. Igniting curiosity, building futures.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Physics simulation
+        let gravityEnabled = true;
+        let ball = document.getElementById('physicsBall');
+
+        function resetBall() {
+            ball.style.animation = 'none';
+            setTimeout(() => {
+                ball.style.animation = 'bounce 3s infinite';
+            }, 10);
+        }
+
+        function launchBall() {
+            ball.style.animation = 'none';
+            ball.style.transition = 'all 2s ease-out';
+            ball.style.transform = 'translate(-50%, -50%) translateX(200px) translateY(-150px)';
+            setTimeout(() => {
+                ball.style.transition = '';
+                resetBall();
+            }, 2000);
+        }
+
+        function toggleGravity() {
+            gravityEnabled = !gravityEnabled;
+            ball.style.filter = gravityEnabled ? 'none' : 'hue-rotate(90deg)';
+            resetBall();
+        }
+
+        ball.addEventListener('click', resetBall);
+
+        // Particle effect on CTA buttons
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                createParticles(e.clientX, e.clientY);
+            });
+        });
+
+        function createParticles(x, y) {
+            for(let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: fixed;
+                    left: ${x}px;
+                    top: ${y}px;
+                    width: 6px;
+                    height: 6px;
+                    background: #4a90e2;
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 9999;
+                    animation: particleFly 1s ease-out forwards;
+                `;
+                particle.style.setProperty('--angle', Math.random() * 360);
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 1000);
+            }
+        }
+
+        // Add particle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes particleFly {
+                to {
+                    transform: translate(calc(var(--angle) * 1px), calc(var(--angle) * -1px)) translateY(-100vh) scale(0);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
